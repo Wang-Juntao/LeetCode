@@ -1,6 +1,10 @@
 package com.wong.leetcode;
 
-
+/**
+ * 
+ * @author weien
+ *
+ */
 public class Q004 {
 
 	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
