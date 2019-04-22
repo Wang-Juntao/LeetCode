@@ -10,12 +10,12 @@ public class Q004 {
 			return nums1.length % 2 == 0 ? (nums1[nums1.length / 2 - 1] + nums1[nums1.length / 2] ) / 2f : nums1[nums1.length / 2];
 		}
 		int sum = nums1.length + nums2.length;
-		int point = sum % 2 == 0 ? sum / 2 - 1 : sum / 2;
+		int point = sum % 2 == 0 ? sum / 2  : sum / 2 + 1;
 		int idx1 = 0;
 		int idx2 = 0;
 		int filtered = 0;
 		boolean isOneFinsh = false;
-		while (filtered < point && !isOneFinsh) {
+		while (filtered < point - 1 && !isOneFinsh) {
 			if (nums1[idx1] < nums2[idx2]) {
 				++idx1;
 				isOneFinsh = idx1 >= nums1.length;
@@ -28,7 +28,8 @@ public class Q004 {
 		}
 		if (isOneFinsh) {
 			int[] nums = idx1 >= nums1.length ? nums2 : nums1;
-			return sum % 2 == 0 ? (nums[point - filtered] + nums[point - filtered + 1]) / 2f : nums[point - filtered];
+			int length = idx1 >= nums1.length ? nums1.length : nums2.length;
+			return sum % 2 == 0 ? (nums[point - length -1] + nums[point - length]) / 2f : nums[point - length -1 ];
 		} else {
 			if(sum % 2 == 0) {
 				if(nums1[idx1] < nums2[idx2] && idx1 < nums1.length - 1 && nums2[idx2] > nums1[idx1+1]) {
@@ -46,8 +47,8 @@ public class Q004 {
 	}
 
 	public static void main(String[] args) {
-		int[] nums1 = new int[] { 1,3};
-		int[] nums2 = new int[] { -1,3};
+		int[] nums1 = new int[] { 2,3,4};
+		int[] nums2 = new int[] {1};
 		System.out.println(findMedianSortedArrays(nums2, nums1));
 	}
 
