@@ -33,7 +33,7 @@ public class Q005 {
 		System.out.println(count);
 		return substr;
 	}
-	
+	//动态规划
 	 public String longestPalindrome_dp(String s) {
 	       int length = s.length();
 			if (length < 1) {
@@ -60,6 +60,33 @@ public class Q005 {
 			}
 			return s.substring(begin, begin + maxLength);
 	    }
+	 public String longestPalindrome_dp_optimize(String s) {
+	       int length = s.length();
+			if (length < 1) {
+				return s;
+			}
+			boolean[][] dp = new boolean[length][length];
+			int maxLength = 1;
+			int begin = 0;
+			for (int j = 0; j < length; j++) {
+				for (int i = 0; i <= j; i++) {
+					if (s.charAt(i) == s.charAt(j)) {
+						if (j - i < 2)
+							dp[i][j] = true;
+						else
+							dp[i][j] = dp[i + 1][j - 1];
+					} else {
+						dp[i][j] = false;
+					}
+					if (dp[i][j] && j - i + 1 > maxLength) {
+						maxLength = j - i + 1;
+						begin = i;
+					}
+				}
+			}
+			return s.substring(begin, begin + maxLength);
+	    }
+
 
 	public static void main(String[] args) {
 //		String str = "baba";
