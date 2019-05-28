@@ -22,7 +22,6 @@ public class Q002 {
 
 	public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 		int i1 = 0;
-		int iIndex = 0;
 		while (l1 != null) {
 			i1 = i1 * 10 + l1.val;
 			l1 = l1.next;
