@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import com.wong.leetcode.bean.ListNode;
+
+import static com.wong.leetcode.bean.ListNode.*;
+
 /**
  * 23. 合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。
  * 
@@ -143,38 +147,6 @@ public class Q023 {
 			pp.next = p2;
 		}
 		return cur.next;
-	}
-
-	public static ListNode transListNode(int[] nums) {
-		ListNode header = new ListNode(nums[0]);
-		ListNode p = header;
-		for (int i = 1; i < nums.length; ++i) {
-			ListNode n = new ListNode(nums[i]);
-			p.next = n;
-			p = n;
-		}
-		return header;
-	}
-
-	public static void printListNode(ListNode header) {
-		ListNode p = header;
-		while (p != null) {
-			System.out.print(p.val + (p.next != null ? "->" : ""));
-			p = p.next;
-		}
-	}
-
-	public static class ListNode {
-		int val;
-		ListNode next;
-
-		ListNode(int x) {
-			val = x;
-		}
-
-		public String toString() {
-			return val + "";
-		}
 	}
 
 }

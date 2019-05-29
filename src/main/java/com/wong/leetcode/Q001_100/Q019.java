@@ -1,5 +1,7 @@
 package com.wong.leetcode.Q001_100;
 
+import com.wong.leetcode.bean.ListNode;
+import static com.wong.leetcode.bean.ListNode.*;
 /**
  * 19. 删除链表的倒数第N个节点 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
  * 
@@ -58,40 +60,8 @@ public class Q019 {
 
 	public static void main(String[] args) {
 		Q019 q = new Q019();
-		ListNode header = q.transListNode(new int[]{1,2,3,4,5});
+		ListNode header = transListNode(new int[]{1,2,3,4,5});
 		ListNode rr = q.removeNthFromEnd_V2(header, 1);
-		q.printListNode(rr);
+		printListNode(rr);
 	}
-	
-	
-	public ListNode transListNode(int[] nums) {
-		ListNode header = new ListNode(nums[0]);
-		ListNode p = header;
-		for(int i=1;i<nums.length;++i) {
-			ListNode n = new ListNode(nums[i]);
-			p.next = n;
-			p = n;
-		}
-		return header;
-	}
-	
-	public void printListNode(ListNode header) {
-		ListNode p = header;
-		while(p != null) {
-			System.out.print(p.val + (p.next != null ? "->" :""));
-			p = p.next;
-		}
-	}
-	
-	public static class ListNode {
-		int val;
-		ListNode next;
-		ListNode(int x) {
-			val = x;
-		}
-		public String toString() {
-			return val + "";
-		}
-	}
-
 }

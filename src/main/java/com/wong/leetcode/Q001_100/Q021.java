@@ -1,5 +1,8 @@
 package com.wong.leetcode.Q001_100;
 
+import com.wong.leetcode.bean.ListNode;
+import static com.wong.leetcode.bean.ListNode.*;
+
 /**
  * 21. 合并两个有序链表
  * 
@@ -56,38 +59,6 @@ public class Q021 {
 		ListNode l2 = transListNode(new int[] { 4, 5, 6 });
 		ListNode l3 = mergeTwoLists(l1, l2);
 		printListNode(l3);
-	}
-
-	public static ListNode transListNode(int[] nums) {
-		ListNode header = new ListNode(nums[0]);
-		ListNode p = header;
-		for (int i = 1; i < nums.length; ++i) {
-			ListNode n = new ListNode(nums[i]);
-			p.next = n;
-			p = n;
-		}
-		return header;
-	}
-
-	public static void printListNode(ListNode header) {
-		ListNode p = header;
-		while (p != null) {
-			System.out.print(p.val + (p.next != null ? "->" : ""));
-			p = p.next;
-		}
-	}
-
-	public static class ListNode {
-		int val;
-		ListNode next;
-
-		ListNode(int x) {
-			val = x;
-		}
-
-		public String toString() {
-			return val + "";
-		}
 	}
 
 }
