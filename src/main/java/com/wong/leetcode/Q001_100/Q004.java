@@ -1,4 +1,4 @@
-package com.wong.leetcode;
+package com.wong.leetcode.Q001_100;
 
 /**
  * 

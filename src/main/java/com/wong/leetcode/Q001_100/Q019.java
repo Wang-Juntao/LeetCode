@@ -1,4 +1,4 @@
-package com.wong.leetcode;
+package com.wong.leetcode.Q001_100;
 
 /**
  * 19. 删除链表的倒数第N个节点 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。

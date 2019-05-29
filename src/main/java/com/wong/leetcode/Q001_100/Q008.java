@@ -1,4 +1,4 @@
-package com.wong.leetcode;
+package com.wong.leetcode.Q001_100;
 
 public class Q008 {
 	public static int myAtoi(String str) {
