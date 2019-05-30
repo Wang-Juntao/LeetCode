@@ -17,20 +17,44 @@ import static com.wong.leetcode.bean.ListNode.*;
  */
 public class Q024 {
 
+	// 递归 每次只交换头两个元素
 	public ListNode swapPairs(ListNode head) {
-		if(head == null || head.next == null) {
+		if (head == null || head.next == null) {
 			return head;
 		}
-		
-		return head;
+		ListNode h1 = head;
+		ListNode h2 = head.next;
+		ListNode tail = h2.next;
+		h2.next = h1;
+		h1.next = swapPairs(tail);
+		return h2;
 	}
-	
+
+	// 普通循环
+	public ListNode swapPairs_v2(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+		ListNode dummy = new ListNode(0);
+		dummy.next = head;
+		ListNode p = dummy;
+		ListNode q = p.next;
+		while (q != null && q.next != null) {
+			ListNode l = p.next;
+			ListNode r = q.next;
+			p.next = q.next;
+			l.next = r.next;
+			r.next = l;
+			p = l;
+			q = p.next;
+		}
+		return dummy.next;
+	}
+
 	public static void main(String[] args) {
-		ListNode l = transListNode(new int[] {1,2,3,4});
-		ListNode r = new Q024().swapPairs(l);
+		ListNode l = transListNode(new int[] { 1, 2,3,4 });
+		ListNode r = new Q024().swapPairs_v2(l);
 		printListNode(r);
 	}
-	
-	
 
 }

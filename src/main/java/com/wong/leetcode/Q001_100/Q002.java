@@ -1,24 +1,8 @@
 package com.wong.leetcode.Q001_100;
 
+import com.wong.leetcode.bean.ListNode;
+
 public class Q002 {
-
-	public static class ListNode {
-		public int val;
-		public ListNode next;
-
-		public ListNode(int val) {
-			this.val = val;
-		}
-		public String toString() {
-			ListNode p = this;
-			String str = "";
-			while(p != null) {
-				str = str + String.format("[%d] -> ", p.val);
-				p = p.next;
-			}
-			return str;
-		}
-	}
 
 	public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 		int i1 = 0;

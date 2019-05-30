@@ -3,6 +3,8 @@ package com.wong.leetcode.bean;
 public class ListNode {
 
 	public static ListNode transListNode(int[] nums) {
+		if(nums == null || nums.length == 0)
+			return null;
 		ListNode header = new ListNode(nums[0]);
 		ListNode p = header;
 		for (int i = 1; i < nums.length; ++i) {
