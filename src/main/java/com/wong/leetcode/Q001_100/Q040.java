@@ -55,7 +55,7 @@ public class Q040 {
 				current.add(candidates[k]);
 				int last_c = backtrack(res, current, candidates, k + 1, target); // 这一层的回溯结束后，移除本层添加的数据
 				current.remove(current.size() - 1);
-				if (last_c > 0) { //当下一层回溯返回的结果已经超过了target，这时候再继续循环已经没有意义，可以提前结束
+				if (last_c >= 0) { //当下一层回溯返回的结果已经超过了target，这时候再继续循环已经没有意义，可以提前结束
 					break;
 				}
 				while(k<candidates.length-1 && candidates[k] == candidates[k+1])k++;
@@ -74,7 +74,7 @@ public class Q040 {
 
 	public static void main(String[] args) {
 		int[] nums = new int[] { 2,5,2,1,2};
-		List<List<Integer>> res = new Q040().combinationSum2(nums, 5);
+		List<List<Integer>> res = new Q040().combinationSum2(nums, 8);
 		res.forEach(x -> {
 			System.out.print("[");
 			x.forEach(y -> {

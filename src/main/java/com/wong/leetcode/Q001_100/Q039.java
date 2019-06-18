@@ -56,7 +56,7 @@ public class Q039 {
 				current.add(candidates[k]);
 				int last_c = backtrack(res, current, candidates, k, target); //这一层的回溯结束后，移除本层添加的数据
 				current.remove(current.size() - 1);
-				if(last_c > 0) {
+				if(last_c >= 0) {
 					break;
 				}
 			}
