@@ -56,6 +56,15 @@ public class Q044 {
 		return dp[s.length()-1][p.length()-1];
 	}
 	
+	public boolean isMatch_TwoPointer(String s, String p) {
+		s = "#" + s;
+		p = "#" + p;
+		int sp = 1;
+		int pp = 1;
+		
+		return false;
+	}
+	
 	public static void main(String[] args) {
 		String s = "adceb";
 		String p = "a*c?b";
