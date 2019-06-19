@@ -26,7 +26,6 @@ public class Q045 {
 				maxPosCanJump = i;
 			}
 		}
-
 		return backtrack(nums,maxPosCanJump,count+1,minStep);
 	}
 	
