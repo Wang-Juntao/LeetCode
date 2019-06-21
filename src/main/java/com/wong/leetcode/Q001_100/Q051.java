@@ -23,108 +23,93 @@ import java.util.List;
  */
 public class Q051 {
 
-	char[][] tmp;
 	int count = 0;
 	int N;
-
-	// 放置一个皇后，则将该皇后可达位置标记为'x',如果回溯失败则重置为' . '
+	int[] queen ;
+	
+	//如果只使用一个queen数组的话，在判断是否可放置，则必须使用一个循环，这必然增大时间复杂度
+	//所以可用用数组缓存数据用于判断是否可放置，因为数组定位元素是O(1)时间复杂度的，可以用空间来换时间
+	int[] rows;// 当前行是否有皇后 有则为1
+	int[] hills;// 斜上角度是否有皇后，每一条斜上线上的点row+col值相等
+	int[] dales;// 斜下角度是否有皇后，每一条斜下线上的点row-col值相等
+	
 	public List<List<String>> solveNQueens(int n) {
 		List<List<String>> res = new ArrayList<>();
 		N = n;
 		init(n);
-		backtrace(res, 0, 0);
-//		for (int i = 0; i < n; i++) {
-//			for (int j = 0; j < n; j++) {
-//			}
-//		}
+		backtrace(res, 0);
 		return res;
 	}
 
 	public void init(int n) {
-		char[][] cc = new char[n][n];
+		int[] xx = new int[N];
 		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				cc[i][j] = '.';
-			}
+			xx[i] = -1;
 		}
-		tmp = cc;
+		queen = xx;
+		rows = new int[N];
+		hills = new int[N*2];
+		dales = new int[N*2];
 	}
-
-	public void backtrace(List<List<String>> res, int x, int y) {
-		if (tmp[x][y] == '.') {
-			put(tmp, x, y);
-			placeNext(res, x, y);
-			remove(tmp, x, y);
-		} else {
-			placeNext(res, x, y);
-		}
-	}
-
-	public void placeNext(List<List<String>> res, int x, int y) {
-		if (count == N) {
-			List<String> list = new ArrayList<>();
-			for (char[] cc : tmp) {
-				list.add(new String(cc).replace('x', '.'));
-			}
-			res.add(list);
+	//N皇后问题的解是每个皇后必须不能再同一列上（或同一行上）
+	//那么只需要每个
+	public void backtrace(List<List<String>> res, int col) {
+		if(count == N) {
+			res.add(convert());
 			return;
 		}
-		if (y == N - 1) {
-			if (x >= N - 1) {
-				return;
-			}
-			backtrace(res, x + 1, 0);
-		} else {
-			backtrace(res, x, y + 1);
+		for(int row = 0;row<N;row++) {
+			if (canPlace(row,col)) {
+				putOne(row, col);
+				backtrace(res, col+1);
+				removeOne(row, col);
+			} 
 		}
 	}
-
-	public void put(char[][] tmp, int x, int y) {
-		for (int i = 0; i < tmp.length; ++i) {
-			tmp[i][y] = 'x';
-			tmp[x][i] = 'x';
-			int x1 = i, y1 = i - x + y;
-			if (y1 >= 0 && y1 < tmp.length) {
-				tmp[x1][y1] = 'x';
-			}
-			int x2 = i, y2 = x + y - i;
-			if (y2 >= 0 && y2 < tmp.length) {
-				tmp[x2][y2] = 'x';
-			}
-		}
-		tmp[x][y] = 'Q';
+	
+	public boolean canPlace(int row, int col) {
+		int res = rows[row] + hills[row+col] + dales[row-col + N];
+		return res == 0 ;
+		
+//		for (int i = 0; i < count; i++) {
+//			if (queen[i] == row || row + col == i + queen[i] || row - col == queen[i] - i) {
+//				return false;
+//			}
+//		}
+//		return true;
+	}
+	
+	public void putOne(int row, int col) {
+		queen[col] = row;
+		rows[row] = 1;
+		hills[row+col] = 1;
+		dales[row-col + N] = 1;
 		count++;
-		System.out.println(String.format("放置(%d,%d),count=%d", x, y, count));
 	}
-
-	public void remove(char[][] tmp, int x, int y) {
-		for (int i = 0; i < tmp.length; ++i) {
-			tmp[i][y] = '.';
-			tmp[x][i] = '.';
-			int x1 = i, y1 = i - x + y;
-			if (y1 >= 0 && y1 < tmp.length) {
-				tmp[x1][y1] = '.';
-			}
-			int x2 = i, y2 = x + y - i;
-			if (y2 >= 0 && y2 < tmp.length) {
-				tmp[x2][y2] = '.';
-			}
-		}
+	
+	public void removeOne(int row,int col) {
+		queen[col] = -1;
+		rows[row] = 0;
+		hills[row+col] = 0;
+		dales[row-col + N] = 0;
 		count--;
-		System.out.println(String.format("移除(%d,%d),count=%d", x, y, count));
 	}
-
-	public void print(char[][] tmp) {
-		for (char[] cc : tmp) {
-			for (char c : cc) {
-				System.out.print(c + "\t");
+	
+	public List<String> convert(){
+		List<String> list = new ArrayList<>();
+		for(int i=0;i<N;i++) {
+			StringBuilder sb = new StringBuilder();
+			for(int j=0;j<N;j++) {
+				sb.append(queen[j] == i ? 'Q' : '.');
 			}
-			System.out.println();
+			list.add(sb.toString());
 		}
+		return list;
 	}
-
+	
 	public static void main(String[] args) {
-		List<List<String>> list = new Q051().solveNQueens(5);
+		List<List<String>> list = new Q051().solveNQueens(20);
+		System.out.println(list.size());
 		for (List<String> l : list) {
 			System.out.println("---------------------");
 			for (String s : l) {
@@ -132,13 +117,6 @@ public class Q051 {
 			}
 			System.out.println("---------------------");
 		}
-//		char[][] tmp = new char[][] {{'.','.','.','.','.'},{'.','.','.','.','.'},{'.','.','.','.','.'},{'.','.','.','.','.'},{'.','.','.','.','.'}};
-//		Q051 q = new Q051();
-//		q.put(tmp, 2, 2);
-//		q.print(tmp);
-//		System.out.println();
-//		q.remove(tmp, 2, 2);
-//		q.print(tmp);
 	}
 
 }
